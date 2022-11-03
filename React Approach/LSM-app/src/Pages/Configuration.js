@@ -179,27 +179,28 @@ class ConfigurationView extends Component {
                 
                 <div className = "row mb-4 mt-4 ml-1 mr-1 align-items-center">
                 <div className="col-o col-md-1" />
-                    <div className="sectionGlass col-12 col-md-5">
-                        <div className="circularMask">
-                            <img src={this.props.data.img} alt="Profile" />
-                        </div>
-                        <h1 className='col-12 font-weight-bold userText'>{this.state.data.username}</h1>
-                        <div className="align-items-center">
-
-                            <button className="button button--primary full-width" type="button" name="button" onClick={this.activatePopUp} > 
-                                Cambiar imagen de perfil
-                            </button>
-                        </div>
-                        
+                    <div className="sectionGlass  col-12 col-md-5">
+                            <p className='font-weight-bold'>Dar de alta</p>
+                            <DatosPersonales onSubmit={this.state.updateUser}/>
                     </div>
+                        
+ 
 
                     <div className='col-12 col-md-5'>
                         <div className="sectionGlass">
-                            <p className='font-weight-bold'>Datos Personales</p>
+                            <p className='font-weight-bold'>Modificar Cuenta</p>
                             <DatosPersonales onSubmit={this.state.updateUser}/>
                         </div>
                         <div className="sectionGlass">
-                            <p className='CAUTION'>ELIMINAR CUENTA</p>
+                        <p className='CAUTION'>ELIMINAR CUENTA</p>
+                        <form onSubmit={this.props.onSubmit} method = {"POST"}>
+                        <div >
+                    <Input type="text" id="username" label="nombre de usuario"  />
+                    <Input  type="email" id="email" label="email"/>
+                    
+                </div>
+                        </form>
+                            
                             <button className="button--CAUTION full-width" type="submit" onClick={this.deleteUser}> ELIMINAR </button>
                         </div>
                     </div>

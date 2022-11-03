@@ -29,7 +29,7 @@ class NavBar extends Component{
                 <div className="container align-items-center">
                         <div className="row"> 
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-4 ml-4" href="/"><img src='../../Cemex_logo.jpg' height="35" width="128" alt='CEMEX' /></NavbarBrand>
+                        <NavbarBrand className="mr-4 ml-4" href="/"><img src='../../Cemex_logo.jpg' height="40" width="40" alt='CEMEX' /></NavbarBrand>
                         
 
                         
@@ -39,16 +39,7 @@ class NavBar extends Component{
                                 <NavLink className="nav-link"  to='/usuario'>Perfil</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link" to='/logros'>Logros</NavLink>
-                            </NavItem>
-                            <NavItem>
                                 <NavLink className="nav-link"  to='/configuracion'>Configuración</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className="nav-link" to={`/juego?id=${this.state.data.username}`}>Juego</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className="nav-link" to='/soporte'>Soporte</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link" to='/leaderboard'>Top 10</NavLink>

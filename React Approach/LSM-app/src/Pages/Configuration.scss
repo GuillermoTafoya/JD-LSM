@@ -1,8 +1,8 @@
-$CEMEX-blue: rgb(0, 64, 128);
-$CEMEX-red: #9F73AB;
+$CEMEX-blue: rgb(159, 115, 171);
+$CEMEX-red: rgb(159, 115, 171);
 $CEMEX-gray: rgba(230,231,238,1);
-$ship-cove: rgba(116,137,185,1);
-$wild-blue-yonder: #624F82;
+$ship-cove: rgba(159, 115, 171,1);
+$wild-blue-yonder: rgba(163,199,214,1);
 
 $primary: $CEMEX-blue;
 $secondary: $ship-cove;
@@ -31,13 +31,13 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
     border-radius: 2 * $borderRadius;
     @include box-shadow(0px 0px 13px 8px rgba(0,0,0,0.1));
 
-    background: rgba(0, 64, 128,0.6);
+    background: rgba(159, 115, 171,0.6);
     color: #fff;
 
     margin-bottom: 20px;
     margin-top: 10px;
 
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    border: 1px solid rgba(159, 115, 171, 0.1);
 
     &:hover {
         background: $CEMEX-blue;
@@ -49,9 +49,9 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
 
     &--CAUTION {
         @extend .button;
-        background: rgba(208, 11, 34,0.6);
+        background: rgba(159, 115, 171,0.6);
         color: #fff;
-        border: 1px solid rgba(208, 11, 34, 0.1);
+        border: 1px solid rgba(159, 115, 171, 0.1);
         &:hover {
             background:  $CEMEX-red;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -100,11 +100,11 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
     padding: 14px 10px;
     margin-bottom: 15px;
     
-    background: rgba(116,137,185, 0.4);;
+    background: rgba(159, 115, 171, 0.4);;
     box-shadow: 0 4px 30px rgba(5,52,100, 0.2);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    border: 1px solid rgba(124,148,181, 0.7);
+    border: 1px solid rgba(163,199,214, 0.7);
     border-radius: 2 * $borderRadius;
     padding: 10px;
     

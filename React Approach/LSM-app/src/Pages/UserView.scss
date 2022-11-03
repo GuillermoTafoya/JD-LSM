@@ -1,11 +1,11 @@
 $background1: rgb(69, 16, 69);
 $background2: rgba(5,52,100,1);
 
-$CEMEX-blue: rgb(0, 64, 128);
-$CEMEX-red: #9F73AB;
+$CEMEX-blue: rgb(159, 115, 171);
+$CEMEX-red: rgb(159, 115, 171);
 $CEMEX-gray: rgba(230,231,238,1);
-$ship-cove: rgba(116,137,185,1);
-$wild-blue-yonder: #624F82;
+$ship-cove: rgba(159, 115, 171,1);
+$wild-blue-yonder: rgba(163,199,214,1);
 
 $borderRadius: 4px;
 
@@ -33,7 +33,7 @@ $borderRadius: 4px;
     aspect-ratio: 1 / 1;
     overflow: hidden; 
     border-radius: 50%;
-    border: 5px solid rgba(0, 64, 128, 0.7); 
+    border: 5px solid rgba(159, 115, 171, 0.7); 
 } 
 
 
@@ -98,7 +98,7 @@ $borderRadius: 4px;
     box-shadow: 0 4px 30px rgba(5,52,100, 0.2);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    border: 1px solid rgba(124,148,181, 0.7);
+    border: 1px solid rgba(163,199,214, 0.7);
     border-radius: 2 * $borderRadius;
     padding: 10px 30px 10px;
     margin-bottom: 20px;
