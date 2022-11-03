@@ -170,7 +170,7 @@ function App() {
           setStatisticsData(
             {
               // avgCoins, avgWins, avgOrdinary, avgGeneral, avgHelmet, avgTotal
-              labels: ["Average Coins", "Average Wins", "Average Ordinary", "Average General", "Average Helmet", "Average Total Army"],
+              labels: ["Average Right Guesses", "Average Finished Modules", "Average Signs Learned", "Average Videos Watched", "Average Quizzes Taken", "Average Score"],
               data: [datosStats.avgCoins, datosStats.avgWins, datosStats.avgOrdinary, datosStats.avgGeneral, datosStats.avgHelmet, datosStats.avgTotal]
             }
           )
