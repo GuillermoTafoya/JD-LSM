@@ -1,10 +1,10 @@
-$CEMEX-blue: rgb(159, 115, 171);
-$CEMEX-red: rgb(159, 115, 171);
-$CEMEX-gray: rgba(230,231,238,1);
+$JD-blue: rgb(159, 115, 171);
+$JD-red: rgb(159, 115, 171);
+$JD-gray: rgba(230,231,238,1);
 $ship-cove: rgba(159, 115, 171,1);
 $wild-blue-yonder: rgba(163,199,214,1);
 
-$primary: $CEMEX-blue;
+$primary: $JD-blue;
 $secondary: $ship-cove;
 
 $borderRadius: 4px;
@@ -40,7 +40,7 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
     border: 1px solid rgba(159, 115, 171, 0.1);
 
     &:hover {
-        background: $CEMEX-blue;
+        background: $JD-blue;
         border: 1px solid rgba(255, 255, 255, 0.1);
         @include box-shadow(0px 0px 18px 15px rgba(104, 104, 248, 0.15));
         
@@ -53,7 +53,7 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
         color: #fff;
         border: 1px solid rgba(159, 115, 171, 0.1);
         &:hover {
-            background:  $CEMEX-red;
+            background:  $JD-red;
             border: 1px solid rgba(255, 255, 255, 0.1);
             @include box-shadow(0px 0px 18px 15px rgba(255, 52, 52, 0.15));
     
@@ -84,7 +84,7 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
 }
 
 .CAUTION{
-    color: $CEMEX-red;
+    color: $JD-red;
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 10px;
@@ -92,7 +92,7 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
 }
 
 .inputGlass{
-    //color:$CEMEX-blue;
+    //color:$JD-blue;
     display: block;
     width: 100%;
     box-sizing: border-box;

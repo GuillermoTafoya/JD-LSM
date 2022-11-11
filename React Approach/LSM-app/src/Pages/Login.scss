@@ -8,13 +8,13 @@ $transitionEasing: cubic-bezier(.36,1,.62,.98);
 $background1: rgb(69, 16, 69);
 $background2: rgba(5,52,100,1);
 
-$CEMEX-blue: rgb(159, 115, 171);
-$CEMEX-red: rgb(159, 115, 171);
-$CEMEX-gray: rgba(230,231,238,1);
+$JD-blue: rgb(159, 115, 171);
+$JD-red: rgb(159, 115, 171);
+$JD-gray: rgba(230,231,238,1);
 $ship-cove: rgba(159, 115, 171,1);
 $wild-blue-yonder: rgba(163,199,214,1);
 
-$secondary: $CEMEX-red;
+$secondary: $JD-red;
 
 @mixin box-shadow($props...) {
     -webkit-box-shadow: $props;
@@ -234,7 +234,7 @@ body {
     position: absolute;
     right: 0;
     top: 4px;
-    color: $CEMEX-gray;
+    color: $JD-gray;
     font-weight: 500;
     cursor: pointer;
     &:hover {
@@ -248,7 +248,7 @@ body {
         height: 2px;
         bottom: 0;
         left: 0;
-        background-color: $CEMEX-red;
+        background-color: $JD-red;
         transform-origin: bottom right;
         transition: transform 0.25s ease-out;
     }

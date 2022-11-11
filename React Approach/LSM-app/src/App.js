@@ -275,7 +275,7 @@ function App() {
           setStatisticsData(
             {
               // avgCoins, avgWins, avgOrdinary, avgGeneral, avgHelmet, avgTotal
-              labels: ["Average Coins", "Average Wins", "Average Ordinary", "Average General", "Average Helmet", "Average Total Army"],
+              labels: ["Average Right Guesses", "Average Finished Modules", "Average Signs Learned", "Average Videos Watched", "Average Quizzes Taken", "Average Score"],
               data: [datosStats.avgCoins, datosStats.avgWins, datosStats.avgOrdinary, datosStats.avgGeneral, datosStats.avgHelmet, datosStats.avgTotal]
             }
           )
@@ -454,7 +454,7 @@ class LoggedInSection extends Component{
               ),
               leaderboardData: datosLeaderboard,
               statisticsData:{
-                labels: ["Average Coins", "Average Wins", "Average Ordinary", "Average General", "Average Helmet", "Average Total Army"],
+                labels: ["Average Right Guesses", "Average Finished Modules", "Average Signs Learned", "Average Videos Watched", "Average Quizzes Taken", "Average Score"],
                 data: [datosStats.avgCoins, datosStats.avgWins, datosStats.avgOrdinary, datosStats.avgGeneral, datosStats.avgHelmet, datosStats.avgTotal]
               },
             }
@@ -499,7 +499,7 @@ updateState(){
             <Route path="juego" element={ <GameView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage} updateNavbar={this.updateNavbar} />} />
             <Route path="configuracion" element={ <ConfigurationView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} />
             <Route path="soporte" element={ <ContactView updateCurrentPage={this.updateCurrentPage}/>} />
-            <Route path="estadisticas" element={ this.state.userData.admin ? <StatisticsView data = {this.state.statisticsData} updateCurrentPage={this.updateCurrentPage}/> :< NotAdmin updateCurrentPage={this.updateCurrentPage}/>} />
+            <Route path="estadisticas" element={  <StatisticsView data = {this.state.statisticsData} updateCurrentPage={this.updateCurrentPage}/> } />
             <Route path="leaderboard" element={ <LeaderboardView data = {this.state.leaderboardData} user = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} />
             <Route path="*" element={<PageNotFound updateCurrentPage={this.updateCurrentPage}/> } />
           </Routes>

@@ -1,9 +1,9 @@
-$CEMEX-blue: rgb(159, 115, 171);
-$CEMEX-blue-glass: rgba(159, 115, 171,0.1);
+$JD-blue: rgb(159, 115, 171);
+$JD-blue-glass: rgba(159, 115, 171,0.1);
 $borderRadius: 4px;
 
-$CEMEX-red: rgb(159, 115, 171);
-$CEMEX-gray: rgba(230,231,238,1);
+$JD-red: rgb(159, 115, 171);
+$JD-gray: rgba(230,231,238,1);
 $ship-cove: rgba(159, 115, 171,1);
 $wild-blue-yonder: rgba(163,199,214,1);
 
@@ -20,7 +20,7 @@ $active-hovered: rgba(255,255, 0, 0.8);
 
 
 .achievementText{
-    color: $CEMEX-blue;
+    color: $JD-blue;
     font-size: 1.2em;
     text-align:center
 }
@@ -52,7 +52,7 @@ $active-hovered: rgba(255,255, 0, 0.8);
     }
 }
 .achievementGlass{
-    //color:$CEMEX-blue;
+    //color:$JD-blue;
     
     box-shadow: 0 4px 30px rgba(5,52,100, 0.2);
     backdrop-filter: blur(3px);

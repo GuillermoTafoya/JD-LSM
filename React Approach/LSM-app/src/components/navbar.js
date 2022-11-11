@@ -29,7 +29,7 @@ class NavBar extends Component{
                 <div className="container align-items-center">
                         <div className="row"> 
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-4 ml-4" href="/"><img src='../../Cemex_logo.jpg' height="40" width="40" alt='CEMEX' /></NavbarBrand>
+                        <NavbarBrand className="mr-4 ml-4" href="/"><img src='../../JD_logo.jpg' height="40" width="40" alt='JD' /></NavbarBrand>
                         
 
                         
@@ -44,12 +44,11 @@ class NavBar extends Component{
                             <NavItem>
                                 <NavLink className="nav-link" to='/leaderboard'>Top 10</NavLink>
                             </NavItem>
-                            {
-                                this.state.data.admin &&
+                            
                                 <NavItem>
                                     <NavLink className="nav-link" to='/estadisticas'>Stats</NavLink>
                                 </NavItem>
-                            }
+                            
                             
                             </Nav>
                         </Collapse>

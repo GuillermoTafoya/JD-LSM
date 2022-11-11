@@ -1,4 +1,4 @@
-$CEMEX-gray: rgba(230,231,238,0.3);
+$JD-gray: rgba(230,231,238,0.3);
 $ship-cove: rgba(159, 115, 171,0.3);
 $border: rgba(4, 22, 119, 0.7);
 $border-dark: rgba(4, 22, 119, 0.6);
@@ -33,7 +33,7 @@ $border-radius: 4px;
     }
     &--odd{
         @extend .table-cell;
-        background-color: $CEMEX-gray;
+        background-color: $JD-gray;
     }
     &--even{
         @extend .table-cell;
