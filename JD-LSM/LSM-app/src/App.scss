@@ -1,0 +1,41 @@
+$background1: rgb(69, 16, 69);
+$background2: rgba(5,52,100,1);
+
+$JD-blue: rgb(159, 115, 171);
+$JD-red: rgb(159, 115, 171);
+$JD-gray: rgba(230,231,238,1);
+$ship-cove: rgba(159, 115, 171,1);
+$wild-blue-yonder: rgba(163,199,214,1);
+
+.app{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    overflow-y: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &--is-login {
+        @extend .app;
+        background-image: url('../public/assets/imgs/Login/background.jpg');
+    }
+    &--is-not-login {
+        @extend .app;
+        background-image: url('../public/assets/imgs/General/bg.jpg');
+    }
+}
+
+.IMPORTANT{
+    color: red;
+}
+
+.placeholder-text{
+    color: $JD-blue;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.side-drawer {
+    padding-top: 160px;
+}

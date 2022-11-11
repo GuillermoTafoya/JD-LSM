@@ -1,0 +1,62 @@
+$JD-gray: rgba(230,231,238,0.3);
+$ship-cove: rgba(159, 115, 171,0.3);
+$border: rgba(4, 22, 119, 0.7);
+$border-dark: rgba(4, 22, 119, 0.6);
+$border-radius: 4px;
+
+
+.last-row{
+    background: rgba(159, 115, 171,0.6) !important;
+    color: whitesmoke;
+}
+
+.table-cell{
+    vertical-align: middle;
+    padding: 0.5em;
+    border: 2px solid $border;
+    //font-size: 1em;
+    word-wrap: break-word;
+    @media only screen and (max-width: 300px) {
+        width: 3vw;
+    }
+
+    @media only screen and (min-width: 300px) {
+        width: 3.5vw;
+    }
+
+    @media only screen and (min-width: 700px) {
+        font-size: 1.2em;
+    }
+
+    @media only screen and (min-width: 1080px) {
+        font-size: 1em;
+    }
+    &--odd{
+        @extend .table-cell;
+        background-color: $JD-gray;
+    }
+    &--even{
+        @extend .table-cell;
+        background-color: $ship-cove;
+    }
+    &--header{
+        @extend .table-cell;
+        font-weight: bold;
+        font-size: 1.2em;
+        background: $border-dark;
+        color: whitesmoke;
+    }
+}
+
+.top-left-corner{
+    border-radius: $border-radius 0px 0px 0px !important;
+}
+.top-right-corner{
+    border-radius: 0px $border-radius 0px 0px;
+}
+.bottom-right-corner{
+    border-radius: 0px 0px $border-radius 0px !important;
+}
+.bottom-left-corner{
+    border-radius: 0px 0px 0px $border-radius;
+}
