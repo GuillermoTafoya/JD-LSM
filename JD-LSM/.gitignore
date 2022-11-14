@@ -1,2 +1,3 @@
 # dependencies
 /node_modules
+/src/api/cloud-functions/datastore-credentials.json

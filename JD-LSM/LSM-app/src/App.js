@@ -1,6 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
 
-
 import { useSessionStorage } from './components/useStorage.js';
 
 import ReactDOM from "react-dom/client";
@@ -8,9 +7,6 @@ import {Routes, Route, useNavigate} from "react-router-dom";
 
 import LoginView from './Pages/Login.js';
 import UserView from './Pages/UserView.js';
-import AchievementsView from './Pages/AchievementsView.js';
-import GameView from './Pages/Game.js';
-import ContactView from './Pages/Contact.js';
 import ConfigurationView from './Pages/Configuration';
 import StatisticsView from './Pages/Statistics';
 import LeaderboardView from './Pages/LeaderboardView.js';
@@ -24,23 +20,18 @@ import NavBar from "./components/navbar.js";
 
 
 class user{
-  constructor(username, email, passwordHash, admin, img, wins, dob, coins, ordinaryNum, generalNum, helmetNum, totalNum, numAchUnlocked, achievements, weapons) {
-    this.username = username;
-    this.email = email ;
-    this.passwordHash = passwordHash;
-    this.admin = admin ;
-    this.dob = dob ;
-    this.ordinaryNum = ordinaryNum ;
-    this.generalNum = generalNum ;
-    this.helmetNum = helmetNum ;
-    this.totalNum = totalNum ;
-    this.numAchUnlocked = numAchUnlocked ;
-    this.weapons = weapons ;
-    this.img = img;
-    this.wins = wins;
+  constructor(ID, achievements, admin, currentStrike, daysAttended, lessonsProgress, mail, name, password, profilePicture){
+    this.ID = ID;
     this.achievements = achievements;
-    this.coins = coins;
-}
+    this.admin = admin;
+    this.currentStrike = currentStrike;
+    this.daysAttended = daysAttended;
+    this.lessonsProgress = lessonsProgress;
+    this.mail = mail;
+    this.name = name;
+    this.password = password;
+    this.profilePicture = profilePicture;
+  }
 }
 
 function App() {
@@ -54,26 +45,18 @@ function App() {
   function updateLoggedIn(){
     sessionStorage.getItem('loggedIn') 
     
-
-    
-    /*
-    console.log(
-      "Session Storage:", 
-      sessionStorage.getItem('user'), 
-      sessionStorage.getItem('leaderboardData'), 
-      sessionStorage.getItem('statisticsData'), 
-      sessionStorage.getItem('loggedIn'))
-    console.log("Updating Logged In")
-    */
   }
 
 
+  /*
+    //update real time
   useEffect(() => {
     const interval = setInterval(() => {
       updateLoggedIn();
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+  */
 
   
 
@@ -123,7 +106,7 @@ function App() {
       };
 
       // Hace request
-      const requestLogin = await fetch("http://localhost:5000/login", opciones);
+      const requestLogin = await fetch("api/login", opciones);
 
 
       // Obtiene respuesta de datos
@@ -198,7 +181,6 @@ function App() {
         
       // / REGISTRO
     }
-
 
 
 
@@ -289,7 +271,7 @@ function App() {
           sessionStorage.setItem('user', JSON.stringify(userData));
           sessionStorage.setItem('leaderboardData', JSON.stringify(leaderboardData));
           sessionStorage.setItem('statisticsData', JSON.stringify(statisticsData));
-          sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+          sessionStorage.setItem('loggedIn', true);
       
           //console.log("all use states 0: ",userData, leaderboardData, statisticsData, loggedIn);
           //console.log("all session storage: ",sessionStorage.getItem('user'), sessionStorage.getItem('leaderboardData'), sessionStorage.getItem('statisticsData'), sessionStorage.getItem('loggedIn'));
@@ -326,13 +308,13 @@ Get ALL data just after logging in
 
   
   
-  if (loggedIn === true){
+  //if (loggedIn === true){
     //console.log("Control:",userData)
     //console.log("Control2222:",loggedIn)
     return (
       <LoggedInSection fun={loginRouteChange} userData={userData} leaderboardData={leaderboardData} statisticsData={statisticsData} />
     );
-  }
+  /*}
   else if (loggedIn === false){
     return(
       <NotLoggedIn fun={loginRouteChange} />
@@ -343,7 +325,7 @@ Get ALL data just after logging in
     console.log("Error:",loggedIn)
     setLoggedIn(false)
   }
-    
+    */
 }
 
 class NotLoggedIn extends Component{
@@ -387,11 +369,7 @@ class LoggedInSection extends Component{
     this.updateState = this.updateState.bind(this);
     this.updateCurrentPage = this.updateCurrentPage.bind(this);
     this.updateNavbar = this.updateNavbar.bind(this);
-    //console.log("Control1:",this.state.userData)
-    //console.log("Control2:",this.props.userData)
   }
-
-
 
   componentDidMount() {
     this.updateState()
@@ -494,11 +472,8 @@ updateState(){
           {this.state.showNav && <NavBar data = {this.state.userData} />}
           <Routes>
             <Route path="/" element={<UserView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage} /> } />
-            <Route path="logros" element={<AchievementsView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} /> 
             <Route path="usuario" element={ <UserView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} />
-            <Route path="juego" element={ <GameView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage} updateNavbar={this.updateNavbar} />} />
             <Route path="configuracion" element={ <ConfigurationView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} />
-            <Route path="soporte" element={ <ContactView updateCurrentPage={this.updateCurrentPage}/>} />
             <Route path="estadisticas" element={  <StatisticsView data = {this.state.statisticsData} updateCurrentPage={this.updateCurrentPage}/> } />
             <Route path="leaderboard" element={ <LeaderboardView data = {this.state.leaderboardData} user = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} />
             <Route path="*" element={<PageNotFound updateCurrentPage={this.updateCurrentPage}/> } />
