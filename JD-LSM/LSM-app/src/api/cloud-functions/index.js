@@ -42,13 +42,27 @@ async function createuser(body) {
     const kind = 'user';
     const ID = uuid.v1();
     const userKey = datastore.key([kind, ID]);
+	let achievements = body.achievements || [];
+	let admin = body.admin || false;
+	let currentStrike = body.currentStrike || 0;
+	let daysAttended = body.daysAttended || [];
+	let lessonsProgress = body.lessonsProgress || [];
+	let mail = body.mail || "";
+	let name = body.name || "";
+	let password = body.password || "";
+	let profilePicture = body.profilePicture || "";
     const user = {
         key: userKey,
         data: {
-            userName: body.userName,
-            created: new Date().toString(),
-            started: '',
-            completed: ''
+            achievements: achievements,
+			admin: admin,
+			currentStrike: currentStrike,
+			daysAttended: daysAttended,
+			lessonsProgress: lessonsProgress,
+			mail: mail,
+			name: name,
+			password: password,
+			profilePicture: profilePicture,
         },
     };
 
@@ -60,25 +74,23 @@ async function createuser(body) {
 async function merge(userToUpdate) {
     const userKey = datastore.key(['user', userToUpdate.userId]);
     const user = {
-        userName: userToUpdate.userName,
+        achievements: userToUpdate.achievements,
+		admin: userToUpdate.admin,
+		currentStrike: userToUpdate.currentStrike,
+		daysAttended: userToUpdate.daysAttended,
+		lessonsProgress: userToUpdate.lessonsProgress,
+		mail: userToUpdate.mail,
+		name: userToUpdate.name,
+		password: userToUpdate.password,
+		profilePicture: userToUpdate.profilePicture,
     };
-    if (userToUpdate.started != undefined && userToUpdate.started == true) {
-        user.started = new Date().toString();
-    }
-
-    if (userToUpdate.completed != undefined && userToUpdate.completed == true) {
-        user.completed = new Date().toString();
-    }
-
-    try {
-        await datastore.merge({
-            key: userKey,
-            data: user,
-        });
-        console.log(`user ${userId} description updated successfully.`);
-    } catch (err) {
-        console.error('ERROR:', err);
-    }
+    
+    await datastore.update({
+        key: userKey,
+        data: user,
+    });
+    console.log(`Updated ${userKey.name}`);
+    return userKey.name;
 }
 
 async function getuser(userId) {
@@ -90,7 +102,7 @@ async function getuser(userId) {
 }
 
 async function listusers() {
-    const query = datastore.createQuery('user').order('created');
+    const query = datastore.createQuery('user');
     const [users] = await datastore.runQuery(query);
     console.log('users:');
     const usersToReturn = [];
@@ -106,8 +118,3 @@ async function listusers() {
 module.exports = {
     app
 };
-
-
-
-
-
