@@ -29,7 +29,7 @@ class NavBar extends Component{
                 <div className="container align-items-center">
                         <div className="row"> 
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-4 ml-4" href="/"><img src='../../JD_logo.jpg' height="40" width="40" alt='JD' /></NavbarBrand>
+                        <NavbarBrand className="mr-4 ml-4" href="/"><img src='../../JD-logo.png' height="40" width="40" alt='JD' /></NavbarBrand>
                         
 
                         

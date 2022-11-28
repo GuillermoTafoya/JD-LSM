@@ -1,14 +1,5 @@
 runtime: nodejs16
 handlers:
-  # Handle API using express listening on port 8000
-  - url: /api/.*
-    script: auto
-    secure: always
-    api_version: 1
-    # This is the port that express is listening on
-    # Note that this is a string
-    env_variables:
-      PORT: "8000"
   # Serve all static files with url ending with a file extension
   - url: /(.*\..+)$
     static_files: build/\1

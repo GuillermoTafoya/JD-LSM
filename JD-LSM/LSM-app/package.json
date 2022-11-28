@@ -1,6 +1,5 @@
 {
-  "proxy": "http://localhost:5000/",
-  "name": "JD-app",
+  "name": "jd-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

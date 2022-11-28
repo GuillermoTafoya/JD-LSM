@@ -46,7 +46,6 @@ class ConfigurationView extends Component {
     
         // Envía req
 
-        //const response = await fetch("http://localhost:5000/deleteUser", payload);
         //const confirmation = await response.json(); // Obtiene respuesta
         alert("Cuenta eliminada")
 
@@ -126,9 +125,9 @@ class ConfigurationView extends Component {
             }
         try{
             // Envía req
-            const response = await fetch("http://localhost:5000/userUpdate", opciones);
 
-            const datosRegistro = await response.json(); // Obtiene respuesta
+            //const datosRegistro = await response.json(); // Obtiene respuesta
+            const datosRegistro = {dummiData: "dummiData"};
             console.log("datosRegistro: ",datosRegistro);
 
             // Si el usuario se actualizó correctamente

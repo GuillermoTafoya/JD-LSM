@@ -3,7 +3,7 @@ import NavBar from '../components/navbar.js';
 
 import '../Pages/UserView.scss';
 
-//import ProfilePlaceholder from '../assets/UserView/panda.png';  //background.jpg; ProfilePlaceholder.png;
+import ProfilePlaceholder from '../assets/UserView/panda.png';  //background.jpg; ProfilePlaceholder.png;
 
 import sword from '../assets/UserView/sword.png';
 import money from '../assets/UserView/money.png';
@@ -56,9 +56,9 @@ class UserView extends Component {
                         <div className="col-12 col-md-5">
                         <div className="sectionGlass">
                             <div className="flex-wrap circularMask">
-                                <img src={this.state.data.img} alt="Profile" />
+                                <img src={this.state.data.profilePicture  || ProfilePlaceholder} alt="Profile" />
                             </div>
-                            <h1 className='col-12 font-weight-bold userText'>{this.state.data.username}</h1>
+                            <h1 className='col-12 font-weight-bold userText'>{this.state.data.name}</h1>
 
                             <div className="grid-container align-items-center">
                                 <div className="grid-item-centered">

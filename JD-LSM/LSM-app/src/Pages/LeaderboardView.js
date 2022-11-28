@@ -1,5 +1,4 @@
 import React, { Component, useState, useEffect } from 'react';
-import { user } from '../api/api.controller.js.js';
 import NavBar from '../components/navbar.js';
 import "../Pages/Leaderboard.scss";
 

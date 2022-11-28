@@ -79,7 +79,6 @@ class Img extends Component {
             }
     
         // Envía req
-        const response = await fetch("http://localhost:5000/updateImg", opciones);
         
         //console.log("response: ",response);
 

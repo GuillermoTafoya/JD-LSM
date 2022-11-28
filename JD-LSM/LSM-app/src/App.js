@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import {Routes, Route, useNavigate} from "react-router-dom";
 
 import LoginView from './Pages/Login.js';
+import RegisterView from './Pages/Register.js';
 import UserView from './Pages/UserView.js';
 import ConfigurationView from './Pages/Configuration';
 import StatisticsView from './Pages/Statistics';
@@ -19,7 +20,7 @@ import ProfilePlaceholder from './assets/UserView/panda.png';
 import NavBar from "./components/navbar.js";
 
 
-class user{
+class User{
   constructor(ID, achievements, admin, currentStrike, daysAttended, lessonsProgress, mail, name, password, profilePicture){
     this.ID = ID;
     this.achievements = achievements;
@@ -60,242 +61,119 @@ function App() {
 
   
 
-  const loginRouteChange = mode => async (e) =>{ 
-    //console.log("mode of form: ",mode);
-    //console.log("e: ",e.target.elements);
-    //console.log("all use states 1: ",userData, leaderboardData, statisticsData, loggedIn);
+  const loginRouteChange = mode => async (e) =>{
     e.preventDefault();
-    const usernameLogin = e.target[0].value;
-    const passwordLogin = e.target[1].value;
-    const usernameRegister = e.target[2].value;
-    const email = e.target[3].value;
-    const birthday = e.target[4].value;
-    const createPassword  = e.target[5].value; 
-    const repeatPassword = e.target[6].value;
-    sessionStorage.setItem("username", usernameLogin);
+
     if (mode === "signup"){ // CONDICIONAL PARA SABER SI ESTÁ EN LOGIN O EN SIGNUP, FALTA VALIDAR EL REPETIR CONTRASEÑAS
 
-      // REGISTRO
-      if( createPassword  !== repeatPassword){
-        alert("Las contraseñas no coincden");
-        return;
-      }
-      const payload = {
-        username: usernameRegister, email: email, dob: birthday, passwordRegister: createPassword
-      }
-
-      // Envía req
-      const response = await fetch("/userRegister", {
-        method: "POST", 
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json" 
+        const mail = document.getElementById('mail').value;
+        const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('passwordConfirm').value;
+        const username = document.getElementById('name').value;
+        const token = document.getElementById('token').value;
+        
+        // Check there are no empty fields
+        if (mail === '' || password === '' || passwordConfirm === '' || username === '' || token === '') {
+            document.getElementById('errorField').innerHTML = "Please fill all the fields";
+            return;
         }
-      });
-    
-      const datosRegistro = await response.json(); // Obtiene res
 
-      if(!datosRegistro.invalidUsername && !datosRegistro.invalidEmail){ // Valida que el usuario y el email no estén repetidos
-        alert("¡Datos de registro válidos!");
-      // Prepara datos a ser enviados
-      const data = { email: email, password: createPassword}; 
-      const opciones = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      };
+        // Regex for email validation
+        const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!mailRegex.test(mail)) {
+            document.getElementById('errorField').innerHTML = "Please enter a valid email";
+            return;
+        }
 
-      // Hace request
-      const requestLogin = await fetch("api/login", opciones);
+        if (password !== passwordConfirm) {
+            document.getElementById('errorField').innerHTML = "Passwords don't match";
+            return;
+        }
 
+        const data = {
+            mail: mail,
+            password: password,
+            name: username,
+            token: token
+        }
 
-      // Obtiene respuesta de datos
-      const datos = await requestLogin.json();
-        setUserData(new user(
-          datos.user.username, datos.user.email, datos.user.passwordHash, datos.user.admin, datos.user.img ? datos.user.img : ProfilePlaceholder , datos.user.wins, datos.user.dob, datos.user.coins,
-          datos.user.ordinaryNum, datos.user.generalNum, datos.user.helmetNum, datos.user.totalNum, datos.user.numAchUnlocked, datos.user.achievements, datos.user.weapons
-          ));
-
-      // Hace request
-      const requestLeaderboard = await fetch(`http://localhost:5000/leaderboard?username=${datos.user.username}`, {
-        method: 'GET',
+        fetch('https://user-api-b5pden6qnq-uc.a.run.app/create-user', {
+            method: 'POST',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            if (data.error) {
+                document.getElementById('errorField').innerHTML = data.error;
+                console.log(data);
+            } else {
+                document.getElementById('errorField').innerHTML = "User created successfully";
+                setUserData(data)
+                setLoggedIn(true)
+                navigate('usuario')
             }
-    })
-      
-      
-      const datosLeaderboard = await requestLeaderboard.json();
-      //console.log("leader",datosLeaderboard)
-
-
-      // Obtiene respuesta de datos
-      //const datos = await requestLogin.json();
-          
-          setLeaderboardData(
-            datosLeaderboard
-          )
-
-
-          // Hace request
-      const requestStats = await fetch("http://localhost:5000/stats", {
-        method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }
-    })
-      
-      
-          const datosStats= await requestStats.json();
-
-          setStatisticsData(
-            {
-              // avgCoins, avgWins, avgOrdinary, avgGeneral, avgHelmet, avgTotal
-              labels: ["Average Right Guesses", "Average Finished Modules", "Average Signs Learned", "Average Videos Watched", "Average Quizzes Taken", "Average Score"],
-              data: [datosStats.avgCoins, datosStats.avgWins, datosStats.avgOrdinary, datosStats.avgGeneral, datosStats.avgHelmet, datosStats.avgTotal]
-            }
-          )
-
-          setLoggedIn(true);
-
-            sessionStorage.setItem('user', JSON.stringify(userData));
-            sessionStorage.setItem('leaderboardData', JSON.stringify(leaderboardData));
-            sessionStorage.setItem('statisticsData', JSON.stringify(statisticsData));
-            sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-        
-            //console.log("all use states 0: ",userData, leaderboardData, statisticsData, loggedIn);
-            //console.log("all session storage: ",sessionStorage.getItem('user'), sessionStorage.getItem('leaderboardData'), sessionStorage.getItem('statisticsData'), sessionStorage.getItem('loggedIn'));
-            //console.log("Cccc", sessionStorage.getItem('user'));
-
-          let path = 'usuario'; 
-          navigate(path);
-      }else if(datosRegistro.invalidUsername && !datosRegistro.invalidEmail){// Valida el usuario
-        alert("Este usuario ya está siendo usado");
-      }else if(datosRegistro.invalidEmail && !datosRegistro.invalidUsername){ // Valida el email
-        alert("Este email ya está siendo usado");
-      }else{
-        alert("El email y el usuario ya están siendo usados");
-      }
-        
-      // / REGISTRO
+        })
     }
-
-
-
-
-
-
-
-
-
-
-
     else{ // ESTÁ EN LOGIN
       // Validar Login:
 
-      // Prepara datos a ser enviados
-      const data = { email: usernameLogin, password: passwordLogin}; 
-      const opciones = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      };
+        e.preventDefault();
+        // API on https://user-api-b5pden6qnq-uc.a.run.app
+        // Call /login with body { mail: mail, password: password }
+        // If user is found, redirect to homepage, save user in local storage and log to console
+        // If user is not found, show error message
 
-      // Hace request
-      const requestLogin = await fetch("http://localhost:5000/login", opciones);
-      // Obtiene respuesta de datos
-      const datos = await requestLogin.json();
-    
-      //console.log("Datos:",datos);
+        const mail = document.getElementById('mail').value;
+        const password = document.getElementById('password').value;
 
-      if (datos.isLogin) { // Si el login fue correcto
+        // Check there are no empty fields
+        if (mail === '' || password === '') {
+            document.getElementById('errorField').innerHTML = "Please fill all the fields";
+            return;
+        }
 
+        // Regex for email validation
+        const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!mailRegex.test(mail)) {
+            document.getElementById('errorField').innerHTML = "Please enter a valid email";
+            return;
+        }
 
-        setUserData(new user(
-          datos.user.username, datos.user.email, datos.user.passwordHash, datos.user.admin, datos.user.img ? datos.user.img : ProfilePlaceholder, datos.user.wins, datos.user.dob, datos.user.coins,
-          datos.user.ordinaryNum, datos.user.generalNum, datos.user.helmetNum, datos.user.totalNum, datos.user.numAchUnlocked, datos.user.achievements, datos.user.weapons
-          ));
+        fetch('https://user-api-b5pden6qnq-uc.a.run.app/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ mail: mail, password: password }),
+        }) 
+            .then(response => response.json())
+            .then(data => {
+              if (data.error) {
+                document.getElementById('errorField').innerHTML = data.error;
+                console.log(data.error);
+              } else {
+                    console.log(data);
+                    setUserData(data);
 
-        //alert("¡Datos de Login Correctos!");
-
-
-        // Hace request
-        const requestLeaderboard = await fetch(`http://localhost:5000/leaderboard?username=${datos.user.username}`, {
-          method: 'GET',
-              headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-              }
-      })
-        
-        
-        const datosLeaderboard = await requestLeaderboard.json();
-        //console.log("leader",datosLeaderboard)
-  
-  
-        // Obtiene respuesta de datos
-        //const datos = await requestLogin.json();
-            
-            setLeaderboardData(
-              datosLeaderboard
+                    setLoggedIn(true);
+                    let path = 'usuario'; 
+                    navigate(path);
+                    //window.location.href = path
+                } 
+            }
             )
 
-        // Hace request
-      const requestStats = await fetch("http://localhost:5000/stats", {
-        method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }
-    })
-      
-      
-          const datosStats= await requestStats.json();
-
-          setStatisticsData(
-            {
-              // avgCoins, avgWins, avgOrdinary, avgGeneral, avgHelmet, avgTotal
-              labels: ["Average Right Guesses", "Average Finished Modules", "Average Signs Learned", "Average Videos Watched", "Average Quizzes Taken", "Average Score"],
-              data: [datosStats.avgCoins, datosStats.avgWins, datosStats.avgOrdinary, datosStats.avgGeneral, datosStats.avgHelmet, datosStats.avgTotal]
-            }
-          )
-
-
-        setLoggedIn(true);
-
-
         
-    
-          sessionStorage.setItem('user', JSON.stringify(userData));
-          sessionStorage.setItem('leaderboardData', JSON.stringify(leaderboardData));
-          sessionStorage.setItem('statisticsData', JSON.stringify(statisticsData));
-          sessionStorage.setItem('loggedIn', true);
-      
-          //console.log("all use states 0: ",userData, leaderboardData, statisticsData, loggedIn);
-          //console.log("all session storage: ",sessionStorage.getItem('user'), sessionStorage.getItem('leaderboardData'), sessionStorage.getItem('statisticsData'), sessionStorage.getItem('loggedIn'));
-          //console.log("Cccc", sessionStorage.getItem('user'));  
-      
-        
-
-        //console.log("all use states 2: ",userData, leaderboardData, statisticsData, loggedIn);
-
-        let path = 'usuario'; 
-        navigate(path);
         // Validar contraseña repetida
 
-      } else {
-        alert("Datos de Login incorrectos");
-      }
+      } 
 
     }
 
-  //setUserData(new user("Usuario12345", ProfilePlaceholder,0, [100,100,50], ["false","false","true","true","false","false"], 500));
   
-  
-  
-  }
   
 /*
 Flow:
@@ -308,13 +186,11 @@ Get ALL data just after logging in
 
   
   
-  //if (loggedIn === true){
-    //console.log("Control:",userData)
-    //console.log("Control2222:",loggedIn)
+  if (loggedIn === true){
     return (
-      <LoggedInSection fun={loginRouteChange} userData={userData} leaderboardData={leaderboardData} statisticsData={statisticsData} />
+      <LoggedInSection fun={loginRouteChange} userData={userData}/>
     );
-  /*}
+  }
   else if (loggedIn === false){
     return(
       <NotLoggedIn fun={loginRouteChange} />
@@ -325,14 +201,13 @@ Get ALL data just after logging in
     console.log("Error:",loggedIn)
     setLoggedIn(false)
   }
-    */
 }
 
 class NotLoggedIn extends Component{
   constructor(props){
     super(props);
     this.state = {
-      fun : this.props.fun
+      fun : this.props.fun,
     }
   }
 
@@ -340,7 +215,8 @@ class NotLoggedIn extends Component{
     return(
       <div className="app">
         <Routes>
-            <Route path="*" element={<LoginView mode={'login'} onSubmit={this.state.fun} /> } />
+            <Route path="/register" element={<RegisterView onSubmit={this.state.fun} /> } />
+            <Route path="*" element={<LoginView onSubmit={this.state.fun} /> } />
         </Routes>
       </div>
     );
@@ -348,128 +224,44 @@ class NotLoggedIn extends Component{
 }
 
 
-
-
-
-
-
-
 class LoggedInSection extends Component{
   constructor(props){
     super(props);
+    
     this.state = {
       fun: this.props.fun,
       userData : this.props.userData,
-      leaderboardData : this.props.leaderboardData,
-      statisticsData : this.props.statisticsData,
+      //leaderboardData : this.props.leaderboardData,
+      //statisticsData : this.props.statisticsData,
       currentPage: 'usuario',
-      showNav: true,
+      //showNav: true,
   }
     
-    this.updateState = this.updateState.bind(this);
+    //this.updateState = this.updateState.bind(this);
     this.updateCurrentPage = this.updateCurrentPage.bind(this);
-    this.updateNavbar = this.updateNavbar.bind(this);
+    //this.updateNavbar = this.updateNavbar.bind(this);
   }
 
   componentDidMount() {
+    /*
     this.updateState()
-    setInterval(this.updateState, 1e3); // x seconds
+    setInterval(this.updateState, 1e3); // x seconds */
+    console.log(this.state.userData)
   }
   updateNavbar(){
+    /*
     this.setState({
       showNav: !this.state.showNav
-    })
+    })*/
   }
 
-  async updateData(){
-    
-    try{
-      //console.log("Initial State:", this.state)
-      // Print session storage
-      /*
-      console.log(
-        "Session Storage:", 
-        sessionStorage.getItem('user'), 
-        sessionStorage.getItem('leaderboardData'), 
-        sessionStorage.getItem('statisticsData'), 
-        sessionStorage.getItem('loggedIn'))
-      */
-    const userFromSession = JSON.parse(sessionStorage.getItem('userData'));
-
-
-      const requestUser = await fetch(`http://localhost:5000/user?username=${userFromSession.username}`, {
-        method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }
-    })
-      const datos = await requestUser.json();
-
-      
-      const requestLeaderboard = await fetch(`http://localhost:5000/leaderboard?username=${datos.username}`, {
-        method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }
-    })
-        const datosLeaderboard = await requestLeaderboard.json();
-
-        const requestStats = await fetch("http://localhost:5000/stats", {
-          method: 'GET',
-              headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-              }
-      })
-            const datosStats= await requestStats.json();
-
-            const newData = {
-              userData: new user(
-              datos.username, datos.email, datos.passwordHash, datos.admin, datos.img ? datos.img : ProfilePlaceholder, datos.wins, datos.dob, datos.coins,
-              datos.ordinaryNum, datos.generalNum, datos.helmetNum, datos.totalNum, datos.numAchUnlocked, datos.achievements, datos.weapons
-              ),
-              leaderboardData: datosLeaderboard,
-              statisticsData:{
-                labels: ["Average Right Guesses", "Average Finished Modules", "Average Signs Learned", "Average Videos Watched", "Average Quizzes Taken", "Average Score"],
-                data: [datosStats.avgCoins, datosStats.avgWins, datosStats.avgOrdinary, datosStats.avgGeneral, datosStats.avgHelmet, datosStats.avgTotal]
-              },
-            }
-            //console.log("New Data:", newData)
-            //console.log("Updated State:", this.state)
-
-            return newData;
-      }
-      catch(error){
-        console.log("Error:", error)
-      }
-}
-updateState(){
-  //console.log(this.state.currentPage)
-    if (this.state.currentPage !== 'juego'){
-      this.updateData().then(data => {
-        //console.log("Updated")
-        //console.log("Data:", data)
-        this.setState(
-          data
-        );
-        //console.log("Debug",this.state.userData)
-        sessionStorage.setItem('userData', JSON.stringify(this.state.userData));
-        sessionStorage.setItem('leaderboardData', JSON.stringify(this.state.leaderboardData));
-        sessionStorage.setItem('statisticsData', JSON.stringify(this.state.statisticsData));
-      }
-      )
-    }
-  
-}
   updateCurrentPage(page){
     this.setState({currentPage: page})
   }  
     render(){
       return(
         <div className="App">
-          {this.state.showNav && <NavBar data = {this.state.userData} />}
+          <NavBar data = {this.state.userData} />
           <Routes>
             <Route path="/" element={<UserView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage} /> } />
             <Route path="usuario" element={ <UserView data = {this.state.userData} updateCurrentPage={this.updateCurrentPage}/>} />

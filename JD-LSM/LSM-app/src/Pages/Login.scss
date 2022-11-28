@@ -16,191 +16,170 @@ $wild-blue-yonder: rgba(163,199,214,1);
 
 $secondary: $JD-red;
 
-@mixin box-shadow($props...) {
-    -webkit-box-shadow: $props;
-    -moz-box-shadow: $props;
-    box-shadow: $props;
+:root{
+    --darkblue: #852999;
+    --seablue: #C539B4;
+    --seagray: #EF9A53;
+    --seawhite: #F5D5AE;
+    // Scrollbar
+    --scrollbar: #C539B4;
+    --scrollbar-thumb: #F5D5AE;
+    --scrollbar-thumb-hover: #EF9A53;
+    --scrollbar-thumb-active: #852999;
+    --scrollbar-track: #C539B4;
+    --scrollbar-track-hover: #C539B4;
+    --scrollbar-track-active: #C539B4;
+    --scrollbar-corner: #C539B4;
 }
 
-@mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    -moz-border-radius: $radius;
-    border-radius: $radius;
+::-webkit-scrollbar {
+    width: 0;
 }
 
-@mixin transition($transition...) {
-    -moz-transition: $transition;
-    -webkit-transition: $transition;
-    transition: $transition;
+// compatability with older browsers to hide scrollbar
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-html, body, .container, #app {
-    width: 100%;
-    height: 100%;
-}
-
-body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    color: #fff;
-    margin: 0 !important;
-    position: absolute;
-
-    
-}
-
-.form-block-wrapper {
-    position: fixed;
+.bg{
+    font-family: 'Courier New', Courier, monospace;
     top: 0;
     left: 0;
     right: 0;
     height: 100%;
-    @include transition(all .85s ease-in-out);
-    &--is-login {
-        opacity: .3;
-        background-color: $background1;
-    }
-    &--is-signup {
-        opacity: .3;
-        background-color: $background2;
-    }
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    background-image: url("https://img.freepik.com/fotos-premium/fondo-borroso-color-purpura-claro-rosa-fondo-degradado-lila-abstracto-arte-desenfocado-desenfoque-bokeh-fondo-pantalla-borroso_113767-5465.jpg?w=2000");
 }
 
-.form-block {
-    position: relative;
-    margin: 100px auto 0;
+.divider{
+    position: absolute; 
+    right: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 1);
     
-    padding: 25px;
-    background: rgba(159, 115, 171, 0.5);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(5,52,100, 0.2);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    border: 1px solid rgba(159, 115, 171, 0.7);
-    border-radius: 2 * $borderRadius;
-    color: #fff;
-    @include box-shadow(0px 0px 16px 9px rgba(0,0,0,0.07));
-    &--is-login {
-        @media only screen and (max-width: 300px) {
-            width: 280px;
-        }
-    
-        @media only screen and (min-width: 300px) {
-            width: 280px;
-        }
-    
-        @media only screen and (min-width: 600px) {
-            width: 300px;
-        }
-    
-        @media only screen and (min-width: 1080px) {
-            width: 350px;
-        }
-        @include transition(all .5s $transitionEasing .2s);
-    }
-    &--is-signup {
-        @media only screen and (max-width: 300px) {
-            width: 280px;
-        }
-    
-        @media only screen and (min-width: 300px) {
-            width: 300px;
-        }
-    
-        @media only screen and (min-width: 600px) {
-            width: 350px;
-        }
-    
-        @media only screen and (min-width: 1080px) {
-            width: 400px;
-        }
-        @include transition(all .5s $transitionEasing .2s);
-    }
 }
 
-.form-block__header {
-    margin-bottom: 20px;
-    h1 {
-        font-size: 30px;
-        margin: 0 0 20px;
+@media (max-width: 600px) {
+    .divider{
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+    }
+    .form-input{
+        font-size: 15px;
+    }
+    .form-container{
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+    .width-definer{
+        width: min(300px, 80vw);
+        font-size: 15px;
         text-align: center;
     }
 }
 
-.form-block__toggle-block {
+@media (min-width: 600px) {
+    
+    .divider{
+        height: 100%;
+        width: min(650px, 55%);
+    }
+
+    .form-input{
+        font-size: 16px;
+    }
+
+    .form-container{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .width-definer{
+        width: 300px;
+    }
+}
+
+.logo-container{
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    top: 40px;
+
+    margin-top: 100px;
+}
+
+.logo{
+    width: min(100px, 100%);
     position: relative;
-    span {
-        font-size: 13px;
-        font-weight: 300;
-        color: rgba(255,255,255,.65);
-    }
 }
 
-.form-block__input-wrapper {
-    height: 2 * $inputHeight;
-    position: relative;
-    margin-bottom: 2 rem;
-    @include transition(all .25s $transitionEasing .3s);
-    .form-block--is-signup & {
-        height: 5 * $inputHeight;
-        @include transition(all .5s $transitionEasing .2s);
-        
-    }
+.form-container{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 10px;
+
 }
 
-.form-group {
-    &--signup {
-        position: absolute;
-        top: 0;
-        left: $offset;
-        width: 100%;
-    }
+.form-title{
+    color: var(--darkblue);
 }
 
-.form-group__input {
+.form-input{
+    padding: 10px 10px;
+    margin-bottom: 10px;
     display: block;
-    font-size: 15px;
-    color: #fff;
+    
     width: 100%;
     box-sizing: border-box;
-    font-size: 16px;
-    padding: 14px 10px;
-    margin-bottom: 15px;
-    background: rgba(255,255,255,.3);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: $borderRadius;
-    &:focus {
-        outline: none;
-        border: 1px solid #fff;
-        background: transparent;
-    }
-    .form-block--is-signup & {
-        transform: translateX(-$offset);
-    }
-    .form-group--login & {
-        opacity: 1;
-        .form-block--is-signup & {
-            opacity: 0;
-        }
-    }
-    .form-group--signup & {
-        opacity: 0;
-        .form-block--is-signup & {
-            opacity: 1;
-        }
-    }
+
+    color: var(--seablue);
+    background: white;
+
+    border: 1px solid var(--seagray);
+    border-radius: 2px;
+    
 }
 
-@for $i from 1 through 5 {
-    .form-group__input:nth-of-type(#{$i}) {
-        @include transition(transform .35s $transitionEasing $i*.085s, opacity .3s ease-in-out .2s, background .15s ease-in-out, border .3s ease-in-out);
-    }
+.form-input:focus{
+    outline: none;
+    border: 1px solid var(--seawhite);
+    background: var(--seagray);
 }
 
-.loginButton {
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px var(--seawhite) inset;
+
+    border: 1px solid var(--seagray);
+    -webkit-text-fill-color: var(--seablue);
+    
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+.form-button {
+    width: 100%;
     display: inline-block;
-    padding: 15px 12px;
-    margin-bottom: 0;
+    padding: 13px 12px;
+    margin-bottom: 5px;
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 400;
     text-transform: uppercase;
@@ -210,82 +189,94 @@ body {
     cursor: pointer;
     background-image: none;
     border: none;
-    border-radius: 2 * $borderRadius;
-    @include transition(all .2s ease-in-out);
-    @include box-shadow(0px 0px 13px 8px rgba(0,0,0,0.1));
-    &--primary {
-        @extend .loginButton;
-        background: $secondary;
-        color: #fff;
-    }
-    &:hover {
-        @include box-shadow(0px 0px 18px 15px rgba(0,0,0,0.15));
-    }
-}
+    border-radius: 5px;
 
-.full-width {
-    width: 100%;
-}
-
-.form-toggler{
-    content: '';
-    font-size: 13px;
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 4px;
-    color: $JD-gray;
-    font-weight: 500;
-    cursor: pointer;
-    &:hover {
-        color: white;
-    }
-    &:after{
-        content: '';
-        position: absolute;
-        width: 100%;
-        transform: scaleX(0);
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: $JD-red;
-        transform-origin: bottom right;
-        transition: transform 0.25s ease-out;
-    }
-    &:hover:after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-    }
-}
-
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    text-transform: capitalize;
-    font-weight: 300;
-    color: rgba(255, 2505, 255, .5);
-}
-::-moz-placeholder { /* Firefox 19+ */
-    text-transform: capitalize;
-    font-weight: 300;
-    color: rgba(255, 255, 255, .5);
-}
-:-ms-input-placeholder { /* IE 10+ */
-    text-transform: capitalize;
-    font-weight: 300;
-    color: rgba(255, 255, 255, .5);
-}
-:-moz-placeholder { /* Firefox 18- */
-    text-transform: capitalize;
-    font-weight: 300;
-    color: rgba(255, 255, 255, .5);
-}
-
-.tooltip {
-    padding: 7px;
-    @include border-radius(1px);
-    background: rgba(0,0,0,.5);
+    background: var(--darkblue);
     color: #fff;
-    font-size: 12px;
-    position: absolute;
-    top: -10px;
-    right: 0
+
 }
+
+.form-button:hover{
+    background: var(--seablue);
+}
+
+.scrolling-section {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.scrolling-section::-webkit-scrollbar {
+    display: none;
+}
+.scrolling-section {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.invalid-field{
+    border: 1px solid red;
+    color: red;
+}
+.invalid-field::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+}
+
+  .invalid-field:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+}
+
+  .invalid-field::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+}
+
+.error-text{
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color:red;
+    font-size: 0.95em;
+    width: min(300px, 80vw);
+}
+
+.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+10%, 90% {
+  transform: translate3d(-1px, 0, 0);
+}
+
+20%, 80% {
+  transform: translate3d(2px, 0, 0);
+}
+
+30%, 50%, 70% {
+  transform: translate3d(-4px, 0, 0);
+}
+
+40%, 60% {
+  transform: translate3d(4px, 0, 0);
+}
+}
+
+
+.videoTag {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+	background-size: cover;
+	transition: 1s opacity; 
+    // add filter to blur the video and make it more dark
+    filter:  brightness(0.7);
+
+}  
