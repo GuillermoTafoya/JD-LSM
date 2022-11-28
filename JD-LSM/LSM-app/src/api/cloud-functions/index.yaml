@@ -1,0 +1,27 @@
+indexes:
+- kind: user
+  properties:
+  indexes:
+
+  - kind: user
+    properties:
+    - name: ID
+      direction: asc
+    - name: achievements
+      direction: asc
+    - name: admin
+      direction: asc
+    - name: currentStrike
+      direction: asc
+    - name: daysAttended
+      direction: asc
+    - name: lessonsProgress
+      direction: asc
+    - name: mail
+      direction: asc
+    - name: name
+      direction: asc
+    - name: password
+      direction: asc
+    - name: profilePicture
+      direction: asc
