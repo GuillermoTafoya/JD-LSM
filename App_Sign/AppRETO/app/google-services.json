@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "116033894630",
+    "firebase_url": "https://reto-fbd4d-default-rtdb.firebaseio.com",
+    "project_id": "reto-fbd4d",
+    "storage_bucket": "reto-fbd4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116033894630:android:273bec5c81c1294134e327",
+        "android_client_info": {
+          "package_name": "com.example.pokerecycler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116033894630-tp7ct7pdk56tq93472ofev4t6sac2vsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuj6miiqQXqloQWMwkOAvctcqi00IlYEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116033894630-tp7ct7pdk56tq93472ofev4t6sac2vsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116033894630:android:8aa8147f95f0ff9f34e327",
+        "android_client_info": {
+          "package_name": "com.example.siign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116033894630-tp7ct7pdk56tq93472ofev4t6sac2vsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuj6miiqQXqloQWMwkOAvctcqi00IlYEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116033894630-tp7ct7pdk56tq93472ofev4t6sac2vsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
